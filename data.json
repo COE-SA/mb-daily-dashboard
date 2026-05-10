@@ -1,0 +1,50 @@
+{
+  "last_updated": "2026-05-10 06:00:00",
+  "periods": {
+    "yesterday_date": "2026-05-09",
+    "day_before_date": "2026-05-08",
+    "week_range": "2026-05-03 → 2026-05-09",
+    "prev_month_range": "2026-04-05 → 2026-04-11"
+  },
+  "totals": {
+    "yesterday": {"revenue": 28000, "orders": 337},
+    "day_before": {"revenue": 41514, "orders": 474},
+    "change_dod_pct": -32.6,
+    "week": {"revenue": 193705, "orders": 2334},
+    "prev_month_week": {"revenue": 175750, "orders": 2260},
+    "change_wow_pct": 10.2
+  },
+  "branches": {
+    "مروى": {"yesterday":{"revenue":7071,"orders":65},"day_before":{"revenue":8118,"orders":88},"week":{"revenue":52000,"orders":612},"prev_month_week":{"revenue":47900,"orders":580},"change_dod":-12.9,"change_wow":8.5},
+    "الأجاويد": {"yesterday":{"revenue":4454,"orders":70},"day_before":{"revenue":8890,"orders":115},"week":{"revenue":42000,"orders":510},"prev_month_week":{"revenue":43400,"orders":540},"change_dod":-49.9,"change_wow":-3.2},
+    "الحمدانية": {"yesterday":{"revenue":5054,"orders":62},"day_before":{"revenue":8032,"orders":85},"week":{"revenue":38500,"orders":480},"prev_month_week":{"revenue":34250,"orders":450},"change_dod":-37.1,"change_wow":12.4},
+    "المدينة": {"yesterday":{"revenue":3334,"orders":45},"day_before":{"revenue":4717,"orders":61},"week":{"revenue":24800,"orders":320},"prev_month_week":{"revenue":23440,"orders":310},"change_dod":-29.3,"change_wow":5.8},
+    "الوزيرية": {"yesterday":{"revenue":2286,"orders":35},"day_before":{"revenue":3847,"orders":50},"week":{"revenue":15400,"orders":220},"prev_month_week":{"revenue":16793,"orders":240},"change_dod":-40.6,"change_wow":-8.3},
+    "الصفا": {"yesterday":{"revenue":5801,"orders":60},"day_before":{"revenue":7910,"orders":75},"week":{"revenue":21000,"orders":192},"prev_month_week":{"revenue":14460,"orders":140},"change_dod":-26.6,"change_wow":45.2}
+  },
+  "top_products_yesterday": [
+    {"product": "ردفلفت كيك - وسط", "qty": 38, "revenue": 3990},
+    {"product": "دريم كيك - وسط", "qty": 32, "revenue": 3392},
+    {"product": "كيك مناسبات", "qty": 2540, "revenue": 2540},
+    {"product": "ردفلفت كيك - كبير", "qty": 14, "revenue": 2282},
+    {"product": "تشوكليت كيك - وسط", "qty": 18, "revenue": 2034}
+  ],
+  "last_7_days": [
+    {"date": "2026-05-03", "revenue": 35200, "orders": 420, "day_name": "الأحد"},
+    {"date": "2026-05-04", "revenue": 27500, "orders": 320, "day_name": "الإثنين"},
+    {"date": "2026-05-05", "revenue": 25800, "orders": 305, "day_name": "الثلاثاء"},
+    {"date": "2026-05-06", "revenue": 28900, "orders": 340, "day_name": "الأربعاء"},
+    {"date": "2026-05-07", "revenue": 26791, "orders": 338, "day_name": "الخميس"},
+    {"date": "2026-05-08", "revenue": 41514, "orders": 474, "day_name": "الجمعة"},
+    {"date": "2026-05-09", "revenue": 28000, "orders": 337, "day_name": "السبت"}
+  ],
+  "prev_month_7_days": [
+    {"date": "2026-04-05", "revenue": 31000, "orders": 380, "day_name": "الأحد"},
+    {"date": "2026-04-06", "revenue": 24500, "orders": 290, "day_name": "الإثنين"},
+    {"date": "2026-04-07", "revenue": 23200, "orders": 280, "day_name": "الثلاثاء"},
+    {"date": "2026-04-08", "revenue": 26100, "orders": 320, "day_name": "الأربعاء"},
+    {"date": "2026-04-09", "revenue": 24800, "orders": 305, "day_name": "الخميس"},
+    {"date": "2026-04-10", "revenue": 24600, "orders": 350, "day_name": "الجمعة"},
+    {"date": "2026-04-11", "revenue": 21550, "orders": 335, "day_name": "السبت"}
+  ]
+}
