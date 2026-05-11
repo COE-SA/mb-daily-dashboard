@@ -1,0 +1,2997 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقرير يومي لمبيعات فروع شركة بوصلة التميز التجارية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --ink:        #0E1A2B;
+  --ink-soft:   #1B2A40;
+  --paper:      #FAF6EE;
+  --paper-2:    #F2EDDF;
+  --paper-3:    #ECE6D5;
+  --cream:      #FFFFFF;
+  --gold:       #B58A2C;
+  --gold-light: #D4B062;
+  --gold-soft:  #F0E0B7;
+  --gold-deep:  #8C6A20;
+  --emerald:    #1F6F52;
+  --emerald-2:  #2A8C68;
+  --emerald-soft:#D4E7DD;
+  --crimson:    #A02020;
+  --crimson-2:  #C12D2D;
+  --crimson-soft:#F5DADA;
+  --amber:      #B86E11;
+  --amber-soft: #FBE7C6;
+  --steel:      #4A5666;
+  --steel-2:    #6C7686;
+  --line:       #E0D9C5;
+  --line-soft:  #EFEAD9;
+  /* App brand colors — 9 apps + direct POS */
+  --c-direct:   #1F6F52;
+  --c-hunger:   #FA9F2E;
+  --c-jahez:    #D62E40;
+  --c-mrsool:   #16B584;
+  --c-chefz:    #9D5DEE;
+  --c-ninja:    #1A1A2E;
+  --c-toyou:    #FF6B35;
+  --c-keeta:    #FECD32;
+  --c-mandoob:  #00A85A;
+  --c-taker:    #2BAEDC;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 14px; scroll-behavior: smooth; }
+body {
+  font-family: 'Tajawal', system-ui, sans-serif;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 10% 0%, rgba(181,138,44,0.05) 0%, transparent 50%),
+    radial-gradient(circle at 90% 100%, rgba(14,26,43,0.04) 0%, transparent 40%);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 22px 30px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cockpit { max-width: 1680px; margin: 0 auto; }
+
+/* ━━━ TYPOGRAPHY ━━━ */
+.display {
+  font-family: 'Fraunces', 'Tajawal', serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.num {
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 1;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+.eyebrow {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2.2px; color: var(--steel-2);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ━━━━━━━━━━━ MASTHEAD ━━━━━━━━━━━ */
+.masthead {
+  text-align: center;
+  padding: 8px 0 16px;
+  border-bottom: 1px solid var(--ink);
+  position: relative;
+  margin-bottom: 8px;
+}
+.masthead::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--ink);
+}
+.mast-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+.mast-top-row .right {
+  color: var(--gold-deep);
+  font-weight: 700;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--emerald-soft);
+  border: 1px solid var(--emerald);
+  border-radius: 100px;
+  font-size: 10px;
+  color: var(--emerald);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.status-pill .dot {
+  width: 6px; height: 6px;
+  background: var(--emerald);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.mast-greet {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--steel);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.mast-title {
+  font-family: 'Fraunces', 'Tajawal', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.mast-subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--gold-deep);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.mast-rule {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 12px auto 4px;
+}
+
+/* ━━━━━━━━━━━ NARRATIVE ━━━━━━━━━━━ */
+.narrative {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-right: 4px solid var(--gold);
+  padding: 16px 22px;
+  margin: 16px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-radius: 4px;
+}
+.narrative .text {
+  flex: 1;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.narrative .text strong { color: var(--ink); font-weight: 700; }
+.narrative .text .num-inline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper-2);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.narrative .num-inline.pos { color: var(--emerald); background: var(--emerald-soft); }
+.narrative .num-inline.neg { color: var(--crimson); background: var(--crimson-soft); }
+.vat-tag {
+  display: inline-block;
+  font-size: 9px;
+  background: var(--paper-2);
+  color: var(--gold-deep);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+/* ━━━━━━━━━━━ KPI ROW ━━━━━━━━━━━ */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.kpi {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  padding: 14px 16px 12px;
+  border-radius: 4px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.kpi:hover { transform: translateY(-2px); border-color: var(--gold); }
+.kpi-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--steel-2);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.kpi-main {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.kpi-unit { font-size: 13px; color: var(--steel); font-weight: 400; margin-right: 3px; }
+.kpi-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: 11px;
+}
+.kpi-sub .label { color: var(--steel); font-weight: 500; }
+.delta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+.delta .pct { font-size: 11.5px; font-weight: 700; }
+.delta .abs { font-size: 10px; font-weight: 500; opacity: 0.85; }
+.delta.pos { color: var(--emerald); }
+.delta.neg { color: var(--crimson); }
+.delta.neu { color: var(--steel); }
+.delta.warn { color: var(--amber); }
+.chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+.chip-pos { background: var(--emerald-soft); color: var(--emerald); }
+.chip-neg { background: var(--crimson-soft); color: var(--crimson); }
+.chip-neu { background: var(--paper-2); color: var(--steel); }
+.chip-warn { background: var(--amber-soft); color: var(--amber); }
+
+/* ━━━━━━━━━━━ COMPARISONS MATRIX ━━━━━━━━━━━ */
+.compare-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.compare-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.compare-head .title {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.compare-head .meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--steel);
+  letter-spacing: 0.3px;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.compare-table thead th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--steel-2);
+  padding: 6px 8px 10px;
+  text-align: right;
+  border-bottom: 1.5px solid var(--ink);
+}
+.compare-table thead th:last-child { text-align: left; }
+.compare-table tbody tr {
+  border-bottom: 1px dashed var(--line-soft);
+}
+.compare-table tbody tr:last-child { border-bottom: none; }
+.compare-table td {
+  padding: 11px 8px;
+  font-size: 13px;
+}
+.cmp-period {
+  font-weight: 700;
+  color: var(--ink);
+}
+.cmp-period .small {
+  display: block;
+  font-size: 10.5px;
+  color: var(--steel);
+  font-weight: 500;
+  margin-top: 1px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.2px;
+}
+.cmp-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+}
+.cmp-val .unit { font-size: 11px; color: var(--steel); margin-right: 3px; }
+.cmp-delta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.cmp-delta .pct {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.cmp-delta .abs {
+  font-size: 11px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+.cmp-delta.pos { color: var(--emerald); }
+.cmp-delta.neg { color: var(--crimson); }
+.estimate-mark {
+  display: inline-block;
+  font-size: 8px;
+  background: var(--amber-soft);
+  color: var(--amber);
+  padding: 0 4px;
+  border-radius: 2px;
+  font-weight: 700;
+  vertical-align: super;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-right: 3px;
+  letter-spacing: 0.5px;
+}
+
+/* ━━━━━━━━━━━ ROW GENERIC ━━━━━━━━━━━ */
+.row { display: grid; gap: 12px; margin-bottom: 14px; }
+.row-2 { grid-template-columns: 1.25fr 1fr; }
+.row-2b { grid-template-columns: 1fr 1.25fr; }
+.card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.card-head .title {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.card-head .eyebrow { color: var(--gold-deep); margin-bottom: 3px; display: block; }
+.card-head .meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--steel);
+  letter-spacing: 0.3px;
+}
+.simulated-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  background: var(--amber-soft);
+  color: var(--amber);
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ━━━━━━━━━━━ BRANCH LEADERBOARD ━━━━━━━━━━━ */
+.lb-row {
+  display: grid;
+  grid-template-columns: 22px 95px 1fr 90px 110px;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 13px;
+}
+.lb-row:last-child { border-bottom: none; }
+.lb-rank {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold-deep);
+  font-style: italic;
+}
+.lb-rank.r-1 { color: var(--gold); font-size: 17px; }
+.lb-name { font-weight: 700; color: var(--ink); font-size: 13.5px; }
+.lb-bar {
+  height: 8px;
+  background: var(--paper-2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.lb-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+.lb-bar-fill.weak { background: linear-gradient(90deg, var(--crimson) 0%, var(--crimson-2) 100%); }
+.lb-bar-fill.mid { background: linear-gradient(90deg, var(--amber) 0%, #D4901E 100%); }
+.lb-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.lb-num .unit { font-size: 10px; color: var(--steel); margin-right: 2px; }
+.lb-delta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+.lb-delta .pct { font-weight: 700; }
+.lb-delta .abs { font-size: 9.5px; opacity: 0.85; }
+.lb-delta.pos { color: var(--emerald); }
+.lb-delta.neg { color: var(--crimson); }
+.lb-delta.neu { color: var(--steel); }
+
+/* ━━━━━━━━━━━ TREND CHART ━━━━━━━━━━━ */
+.trend-wrap { position: relative; height: 220px; padding-top: 6px; }
+.legend-pills {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 8px;
+  font-size: 11.5px;
+}
+.lp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--steel);
+  font-weight: 500;
+}
+.lp-dot { width: 10px; height: 3px; border-radius: 2px; }
+
+/* ━━━━━━━━━━━ DELIVERY CHANNELS ━━━━━━━━━━━ */
+.channels-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ch-top {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 22px;
+  align-items: center;
+}
+.donut-wrap {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: 0 auto;
+}
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.donut-center .big {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.donut-center .small {
+  font-size: 9px;
+  color: var(--steel);
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  margin-top: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+}
+.donut-center .ribbon {
+  font-size: 8.5px;
+  background: var(--ink);
+  color: var(--gold-soft);
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+}
+.ch-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.ch-stat {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  border-radius: 4px;
+}
+.ch-stat .label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: var(--steel-2);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ch-stat .val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.ch-stat .val .unit { font-size: 11px; color: var(--steel); margin-right: 3px; }
+.ch-stat .meta {
+  margin-top: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--steel);
+}
+.ch-stat.crimson .val { color: var(--crimson); }
+.ch-stat.emerald .val { color: var(--emerald); }
+
+/* Channels table */
+.ch-table-wrap {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.ch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.ch-table thead th {
+  background: var(--ink);
+  color: var(--gold-soft);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 9px 8px;
+  text-align: right;
+  white-space: nowrap;
+}
+.ch-table thead th:not(:first-child) { text-align: left; }
+.ch-table thead th:first-child { padding-right: 16px; }
+.ch-table tbody tr {
+  border-bottom: 1px dashed var(--line-soft);
+  transition: background 0.15s ease;
+}
+.ch-table tbody tr:hover { background: var(--cream); }
+.ch-table tbody tr:last-child { border-bottom: none; }
+.ch-table tbody tr.totals {
+  background: var(--ink);
+  color: var(--gold-soft);
+  font-weight: 700;
+}
+.ch-table tbody tr.totals td { color: var(--gold-light); font-weight: 700; }
+.ch-table tbody tr.totals td:first-child { color: #FFFFFF; }
+.ch-table td {
+  padding: 9px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  color: var(--ink);
+  font-weight: 500;
+}
+.ch-table td:first-child {
+  text-align: right;
+  padding-right: 16px;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 700;
+  position: relative;
+}
+.ch-table td:first-child .ch-color {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.ch-table td .secondary {
+  display: block;
+  font-size: 9.5px;
+  color: var(--steel);
+  margin-top: 1px;
+  font-weight: 500;
+}
+.ch-eta {
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--paper-2);
+  color: var(--steel);
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.ch-eta.now { background: var(--emerald-soft); color: var(--emerald); }
+.ch-net {
+  color: var(--emerald) !important;
+  font-weight: 700 !important;
+}
+
+/* Discounts visual bars inside table */
+.disc-bar {
+  width: 80px;
+  height: 7px;
+  background: var(--paper-2);
+  border-radius: 2px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+}
+.disc-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+.ch-table td .disc-bar { margin: 0; }
+.ch-table .impact-cell {
+  color: var(--crimson);
+  font-weight: 700;
+}
+.ch-table tbody tr.totals .impact-cell {
+  color: var(--gold-light);
+}
+
+/* ━━━━━━━━━━━ CASH FLOW ━━━━━━━━━━━ */
+.cash-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 22px;
+}
+.waterfall { height: 220px; position: relative; }
+.pipe-head {
+  display: grid;
+  grid-template-columns: 50px 1fr 90px;
+  gap: 8px;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--steel);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.pipe-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 90px;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 12px;
+}
+.pipe-when {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--steel);
+  font-weight: 600;
+}
+.pipe-source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 11.5px;
+}
+.pipe-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.pipe-amount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.cash-summary {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: var(--gold-soft);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+.cash-summary .label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.cash-summary .val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gold-light);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ━━━━━━━━━━━ TOP PRODUCTS ━━━━━━━━━━━ */
+.product-row {
+  display: grid;
+  grid-template-columns: 18px 1fr 80px 70px 90px;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 12.5px;
+}
+.product-row:last-child { border-bottom: none; }
+.p-rank {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  color: var(--gold-deep);
+  font-weight: 600;
+  font-style: italic;
+}
+.p-name { color: var(--ink); font-weight: 500; }
+.p-qty {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  text-align: left;
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.p-qty .unit { font-size: 9.5px; color: var(--steel); font-weight: 400; }
+.p-rev {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.p-trend {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* ━━━━━━━━━━━ HERO / LOSER ━━━━━━━━━━━ */
+.spot-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 14px 16px;
+  position: relative;
+}
+.spot-card.hero { border-right: 4px solid var(--emerald); }
+.spot-card.loser { border-right: 4px solid var(--crimson); }
+.spot-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.spot-card.hero .spot-eyebrow { color: var(--emerald); }
+.spot-card.loser .spot-eyebrow { color: var(--crimson); }
+.spot-name {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.spot-metric {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.spot-metric .delta-arrow { font-size: 14px; }
+.spot-metric .delta-abs { font-size: 12px; color: var(--steel); font-weight: 500; }
+.spot-card.hero .spot-metric .delta-arrow { color: var(--emerald); }
+.spot-card.loser .spot-metric .delta-arrow { color: var(--crimson); }
+.spot-note {
+  font-size: 11.5px;
+  color: var(--steel-2);
+  line-height: 1.5;
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+/* ━━━━━━━━━━━ ALERTS ━━━━━━━━━━━ */
+.alerts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.alert {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-right: 3px solid var(--amber);
+  padding: 10px 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11.5px;
+}
+.alert.crit { border-right-color: var(--crimson); background: linear-gradient(90deg, var(--cream) 0%, var(--crimson-soft) 100%); }
+.alert.warn { border-right-color: var(--amber); }
+.alert.ok { border-right-color: var(--emerald); }
+.alert-icon { font-size: 18px; flex-shrink: 0; }
+.alert-body { flex: 1; line-height: 1.5; }
+.alert-body strong { color: var(--ink); font-weight: 700; }
+.alert-body .num-inline {
+  background: rgba(0,0,0,0.06);
+  padding: 0 4px;
+  border-radius: 2px;
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+}
+
+/* ━━━━━━━━━━━ VAT COUNTER ━━━━━━━━━━━ */
+.vat-section {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 100%);
+  border-radius: 4px;
+  padding: 22px 24px;
+  color: var(--gold-soft);
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.vat-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%);
+}
+.vat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(212,176,98,0.25);
+}
+.vat-head .title {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+.vat-head .eyebrow {
+  color: var(--gold-light);
+  margin-bottom: 4px;
+  display: block;
+}
+.vat-head .meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gold-soft);
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+}
+.vat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.vat-card {
+  background: rgba(212,176,98,0.04);
+  border: 1px solid rgba(212,176,98,0.2);
+  border-radius: 4px;
+  padding: 18px 20px;
+  position: relative;
+}
+.vat-card.q-card { border-color: rgba(212,176,98,0.45); background: rgba(212,176,98,0.07); }
+.vat-card-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.vat-card-period {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+.vat-card-period.year { color: #FFFFFF; opacity: 0.9; }
+.vat-card-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 2px 7px;
+  border-radius: 2px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.vat-card-tag.year { background: rgba(255,255,255,0.85); color: var(--ink); }
+.vat-card-amount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 38px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+}
+.vat-card-amount .unit {
+  font-size: 18px;
+  color: var(--gold-light);
+  font-weight: 400;
+  margin-right: 6px;
+}
+.vat-card-label {
+  font-size: 11.5px;
+  color: var(--gold-soft);
+  opacity: 0.85;
+  margin-bottom: 14px;
+}
+.vat-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px dashed rgba(212,176,98,0.2);
+  border-bottom: 1px dashed rgba(212,176,98,0.2);
+  margin-bottom: 12px;
+}
+.vat-stat .label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-soft);
+  opacity: 0.65;
+  margin-bottom: 3px;
+}
+.vat-stat .val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  font-variant-numeric: tabular-nums;
+}
+.vat-stat .val .unit {
+  font-size: 10px;
+  color: var(--gold-soft);
+  opacity: 0.7;
+  margin-right: 2px;
+}
+.vat-progress {
+  height: 6px;
+  background: rgba(212,176,98,0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.vat-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 100%);
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+.vat-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gold-soft);
+  opacity: 0.85;
+}
+.vat-due {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: rgba(212,176,98,0.1);
+  border-right: 3px solid var(--gold-light);
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+}
+.vat-due .label {
+  color: var(--gold-soft);
+  opacity: 0.9;
+}
+.vat-due .date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  color: #FFFFFF;
+  font-size: 12.5px;
+  letter-spacing: 0.5px;
+}
+.vat-due .countdown {
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 10.5px;
+  margin-right: 8px;
+}
+.vat-rate-note {
+  margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  color: var(--gold-soft);
+  opacity: 0.55;
+  letter-spacing: 0.3px;
+}
+
+/* ━━━━━━━━━━━ BRANCH PRODUCTIVITY ━━━━━━━━━━━ */
+.bp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.bp-table thead th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--steel-2);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  padding: 8px 6px;
+  border-bottom: 1.5px solid var(--ink);
+  text-align: right;
+  font-weight: 500;
+}
+.bp-table thead th.num-col { text-align: center; }
+.bp-table tbody td {
+  padding: 10px 6px;
+  border-bottom: 1px dashed var(--line-soft);
+  vertical-align: middle;
+}
+.bp-table tbody td.num-col {
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+.bp-table tbody tr:hover { background: var(--paper-2); }
+.bp-name { font-weight: 700; color: var(--ink); font-size: 13px; }
+.bp-code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--steel-2);
+  display: block;
+  margin-top: 1px;
+}
+.bp-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--ink);
+}
+.bp-disc-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.bp-disc-bar {
+  width: 60px;
+  height: 6px;
+  background: var(--paper-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bp-disc-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+.bp-disc-fill.ok { background: var(--emerald); }
+.bp-disc-fill.warn { background: var(--amber); }
+.bp-disc-fill.high { background: var(--crimson); }
+.bp-disc-pct {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 30px;
+  text-align: right;
+}
+.bp-flag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+.bp-flag.top { background: var(--emerald); color: var(--cream); }
+.bp-flag.review { background: var(--crimson); color: var(--cream); }
+.bp-flag.normal { background: var(--paper-2); color: var(--steel); }
+.bp-totals { background: var(--paper-3); font-weight: 700; }
+.bp-totals td {
+  padding: 12px 6px;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: none;
+}
+.bp-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.bp-sum-card {
+  padding: 11px 13px;
+  background: var(--paper-2);
+  border-radius: 4px;
+  border-right: 3px solid var(--steel-2);
+}
+.bp-sum-card.win { border-right-color: var(--emerald); }
+.bp-sum-card.warn { border-right-color: var(--crimson); }
+.bp-sum-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: var(--steel-2);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.bp-sum-title {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.bp-sum-detail {
+  font-size: 11px;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+/* ━━━━━━━━━━━ HOURLY HEATMAP ━━━━━━━━━━━ */
+.ht-wrap { overflow-x: auto; padding-bottom: 4px; }
+.ht-grid {
+  display: grid;
+  grid-template-columns: 100px repeat(18, 1fr);
+  gap: 2px;
+  min-width: 880px;
+}
+.ht-hour-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--steel-2);
+  text-align: center;
+  padding: 5px 1px;
+  letter-spacing: 0.2px;
+}
+.ht-branch-label {
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--ink);
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  background: var(--paper-2);
+  border-radius: 3px;
+}
+.ht-cell {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 7px 1px;
+  text-align: center;
+  border-radius: 2px;
+  font-weight: 600;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
+}
+.ht-cell.l0 { background: var(--paper-2); color: var(--steel-2); }
+.ht-cell.l1 { background: #EFE4C8; color: var(--steel); }
+.ht-cell.l2 { background: #E0CFA0; color: var(--ink); }
+.ht-cell.l3 { background: #C9B477; color: var(--ink); }
+.ht-cell.l4 { background: var(--gold); color: var(--cream); }
+.ht-cell.l5 { background: var(--gold-deep); color: var(--cream); }
+.ht-cell.peak { outline: 2px solid var(--crimson); outline-offset: -2px; }
+.ht-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--steel-2);
+  justify-content: flex-end;
+}
+.ht-legend-scale { display: flex; align-items: center; gap: 3px; }
+.ht-legend-scale .swatch { width: 20px; height: 10px; border-radius: 2px; }
+.ht-insights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.ht-insight {
+  padding: 11px 13px;
+  background: var(--paper-2);
+  border-radius: 4px;
+  border-right: 3px solid var(--gold);
+}
+.ht-insight.green { border-right-color: var(--emerald); }
+.ht-insight.red { border-right-color: var(--crimson); }
+.ht-insight-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: var(--steel-2);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.ht-insight-title {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.ht-insight-detail {
+  font-size: 11px;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+/* ━━━━━━━━━━━ INVENTORY TRANSFERS ━━━━━━━━━━━ */
+.tr-header {
+  display: grid;
+  grid-template-columns: 26px 1.3fr 1fr 26px 1fr 70px 105px;
+  gap: 10px;
+  padding: 0 4px 6px;
+  border-bottom: 1.5px solid var(--ink);
+  margin-bottom: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  color: var(--steel-2);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.tr-row {
+  display: grid;
+  grid-template-columns: 26px 1.3fr 1fr 26px 1fr 70px 105px;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 4px;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 12.5px;
+}
+.tr-row:last-child { border-bottom: none; }
+.tr-row:hover { background: var(--paper-2); }
+.tr-rank {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold-deep);
+  font-style: italic;
+  text-align: center;
+}
+.tr-product { font-weight: 600; color: var(--ink); font-size: 12.5px; }
+.tr-product .sku {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  color: var(--steel-2);
+  margin-right: 5px;
+  font-weight: 400;
+}
+.tr-from, .tr-to {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tr-side-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  color: var(--steel-2);
+  letter-spacing: 0.3px;
+}
+.tr-branch-line {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+.tr-cov {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+.tr-cov.high { color: var(--emerald); }
+.tr-cov.low { color: var(--crimson); }
+.tr-cov.critical { color: var(--crimson); font-weight: 700; }
+.tr-arrow { text-align: center; font-size: 16px; color: var(--steel-2); }
+.tr-qty {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+  text-align: center;
+  background: var(--paper-2);
+  padding: 5px 8px;
+  border-radius: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.tr-urgency {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 7px;
+  border-radius: 3px;
+  text-align: center;
+  letter-spacing: 0.4px;
+}
+.tr-urgency.critical { background: var(--crimson); color: var(--cream); }
+.tr-urgency.soon { background: var(--amber); color: var(--cream); }
+.tr-urgency.week { background: var(--paper-3); color: var(--steel); }
+.tr-summary {
+  margin-top: 14px;
+  padding: 11px 13px;
+  background: var(--paper-2);
+  border-right: 3px solid var(--emerald);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--steel);
+}
+.tr-summary strong {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+/* ━━━━━━━━━━━ FOOTER ━━━━━━━━━━━ */
+.footer-strip {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  color: var(--steel);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.footer-strip .right { font-style: italic; color: var(--gold-deep); }
+
+/* Animations */
+.cockpit > * { opacity: 0; animation: fadein 0.6s ease forwards; }
+.cockpit > *:nth-child(1) { animation-delay: 0s; }
+.cockpit > *:nth-child(2) { animation-delay: 0.05s; }
+.cockpit > *:nth-child(3) { animation-delay: 0.10s; }
+.cockpit > *:nth-child(4) { animation-delay: 0.15s; }
+.cockpit > *:nth-child(5) { animation-delay: 0.20s; }
+.cockpit > *:nth-child(6) { animation-delay: 0.25s; }
+.cockpit > *:nth-child(7) { animation-delay: 0.30s; }
+.cockpit > *:nth-child(8) { animation-delay: 0.35s; }
+.cockpit > *:nth-child(9) { animation-delay: 0.40s; }
+.cockpit > *:nth-child(10) { animation-delay: 0.45s; }
+.cockpit > *:nth-child(11) { animation-delay: 0.50s; }
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--paper-2); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="cockpit">
+
+  <!-- ━━━━━━━━━━━ MASTHEAD ━━━━━━━━━━━ -->
+  <header class="masthead">
+    <div class="mast-top-row">
+      <span>SUNDAY · 10 MAY 2026 · 06:00 AST</span>
+      <span class="right">ISSUE No. 142</span>
+      <span class="status-pill"><span class="dot"></span>LIVE</span>
+    </div>
+    <div class="mast-greet">صباح الخير</div>
+    <div class="mast-title">تقرير يومي لمبيعات فروع شركة بوصلة التميز التجارية</div>
+    <div class="mast-rule"></div>
+    <div class="mast-subtitle">DAILY SALES REPORT · COMMERCIAL EXCELLENCE COMPASS CO.</div>
+  </header>
+
+  <!-- ━━━━━━━━━━━ NARRATIVE ━━━━━━━━━━━ -->
+  <div class="narrative">
+    <div class="text">
+      <span class="vat-tag">شامل ضريبة</span>
+      أمس <strong>الأحد</strong> سجّلنا <span class="num-inline">28,000 ﷼</span> من <span class="num-inline">337 طلب</span>،
+      بانخفاض <span class="num-inline neg">−13,514 ﷼ (−32.6%)</span> عن الجمعة.
+      الأسبوع كاملاً <span class="num-inline pos">+17,955 ﷼ (+10.2%)</span> مقارنة بنفس الفترة الشهر السابق.
+      <strong>الأجاويد</strong> يقود النمو يومياً، بينما <strong>المدينة</strong> يحتاج انتباه بانكماش أسبوعي
+      <span class="num-inline neg">−4,059 ﷼ (−14.8%)</span>.
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ KPI ROW ━━━━━━━━━━━ -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-eyebrow"><span>إيراد أمس</span><span class="vat-tag">شامل VAT</span></div>
+      <div class="kpi-main">28,000<span class="kpi-unit">﷼</span></div>
+      <div class="kpi-sub">
+        <span class="label">vs الجمعة (41,514 ﷼)</span>
+        <span class="delta neg">
+          <span class="pct">−32.6%</span>
+          <span class="abs">−13,514 ﷼</span>
+        </span>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-eyebrow"><span>عدد الطلبات</span></div>
+      <div class="kpi-main">337</div>
+      <div class="kpi-sub">
+        <span class="label">vs 474 طلب</span>
+        <span class="delta neg">
+          <span class="pct">−28.9%</span>
+          <span class="abs">−137 طلب</span>
+        </span>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-eyebrow"><span>متوسط الطلب</span><span class="vat-tag">شامل VAT</span></div>
+      <div class="kpi-main">83<span class="kpi-unit">﷼</span></div>
+      <div class="kpi-sub">
+        <span class="label">معدل الأسبوع 82 ﷼</span>
+        <span class="delta pos">
+          <span class="pct">+1.2%</span>
+          <span class="abs">+1 ﷼</span>
+        </span>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-eyebrow"><span>المرتجعات</span></div>
+      <div class="kpi-main">0.8<span class="kpi-unit">%</span></div>
+      <div class="kpi-sub">
+        <span class="label">224 ﷼ من 28,000</span>
+        <span class="chip chip-pos">صحي</span>
+      </div>
+    </div>
+    <div class="kpi" style="background: linear-gradient(135deg, var(--cream) 0%, var(--gold-soft) 100%); border-color: var(--gold);">
+      <div class="kpi-eyebrow"><span style="color:var(--gold-deep);">السيولة المتوقعة</span><span class="simulated-tag">محاكاة</span></div>
+      <div class="kpi-main">145,200<span class="kpi-unit">﷼</span></div>
+      <div class="kpi-sub">
+        <span class="label">صافي بعد العمولات · 30 يوم</span>
+        <span class="chip chip-neu">من 5 قنوات</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ COMPARISONS MATRIX ━━━━━━━━━━━ -->
+  <div class="compare-card">
+    <div class="compare-head">
+      <div>
+        <span class="eyebrow">PERIOD COMPARISONS · مصفوفة المقارنات</span>
+        <div class="title">المقارنات الزمنية المعيارية</div>
+      </div>
+      <span class="meta">DoD · WoW · MoM · YoY — كل الأرقام شاملة الضريبة</span>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>الفترة</th>
+          <th>القيمة الحالية</th>
+          <th>القيمة المقارنة</th>
+          <th style="text-align:left;">الفرق · الاتجاه</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cmp-period">
+            يومي (DoD)
+            <span class="small">الأحد 10 مايو · vs الجمعة 8 مايو</span>
+          </td>
+          <td class="cmp-val">28,000 <span class="unit">﷼</span></td>
+          <td class="cmp-val" style="color:var(--steel)">41,514 <span class="unit">﷼</span></td>
+          <td>
+            <span class="cmp-delta neg">
+              <span class="pct">▼ −32.6%</span>
+              <span class="abs">−13,514 ﷼</span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cmp-period">
+            أسبوعي (WoW)
+            <span class="small">آخر 7 أيام · vs الـ 7 أيام السابقة</span>
+          </td>
+          <td class="cmp-val">193,705 <span class="unit">﷼</span></td>
+          <td class="cmp-val" style="color:var(--steel)">188,420 <span class="unit">﷼</span></td>
+          <td>
+            <span class="cmp-delta pos">
+              <span class="pct">▲ +2.8%</span>
+              <span class="abs">+5,285 ﷼</span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cmp-period">
+            شهري (MoM)<span class="estimate-mark">EST</span>
+            <span class="small">مايو حتى اليوم · vs نفس الفترة أبريل</span>
+          </td>
+          <td class="cmp-val">311,420 <span class="unit">﷼</span></td>
+          <td class="cmp-val" style="color:var(--steel)">269,150 <span class="unit">﷼</span></td>
+          <td>
+            <span class="cmp-delta pos">
+              <span class="pct">▲ +15.7%</span>
+              <span class="abs">+42,270 ﷼</span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="cmp-period">
+            سنوي (YoY)<span class="estimate-mark">EST</span>
+            <span class="small">YTD 2026 · vs نفس الفترة 2025</span>
+          </td>
+          <td class="cmp-val">3,628,000 <span class="unit">﷼</span></td>
+          <td class="cmp-val" style="color:var(--steel)">2,946,800 <span class="unit">﷼</span></td>
+          <td>
+            <span class="cmp-delta pos">
+              <span class="pct">▲ +23.1%</span>
+              <span class="abs">+681,200 ﷼</span>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ━━━━━━━━━━━ BRANCHES + TREND ━━━━━━━━━━━ -->
+  <div class="row row-2">
+
+    <!-- Branch leaderboard - 6 branches -->
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="eyebrow">BRANCH LEADERBOARD · 6 فروع</span>
+          <div class="title">ترتيب الفروع — أمس</div>
+        </div>
+        <span class="meta">28,000 ﷼ · 337 طلب · شامل ضريبة</span>
+      </div>
+      <div>
+        <div class="lb-row">
+          <span class="lb-rank r-1">1</span>
+          <span class="lb-name">مروى</span>
+          <div class="lb-bar"><div class="lb-bar-fill" style="width:100%"></div></div>
+          <span class="lb-num">7,071 <span class="unit">﷼</span></span>
+          <span class="lb-delta neg">
+            <span class="pct">−12.9%</span>
+            <span class="abs">−1,047 ﷼ DoD</span>
+          </span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">2</span>
+          <span class="lb-name">الحمدانية</span>
+          <div class="lb-bar"><div class="lb-bar-fill" style="width:78%"></div></div>
+          <span class="lb-num">5,500 <span class="unit">﷼</span></span>
+          <span class="lb-delta pos">
+            <span class="pct">+8.4%</span>
+            <span class="abs">+428 ﷼ DoD</span>
+          </span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">3</span>
+          <span class="lb-name">الأجاويد</span>
+          <div class="lb-bar"><div class="lb-bar-fill" style="width:72%"></div></div>
+          <span class="lb-num">5,100 <span class="unit">﷼</span></span>
+          <span class="lb-delta pos">
+            <span class="pct">+39.9%</span>
+            <span class="abs">+1,455 ﷼ DoD</span>
+          </span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">4</span>
+          <span class="lb-name">الصفا</span>
+          <div class="lb-bar"><div class="lb-bar-fill mid" style="width:59%"></div></div>
+          <span class="lb-num">4,200 <span class="unit">﷼</span></span>
+          <span class="lb-delta neg">
+            <span class="pct">−18.4%</span>
+            <span class="abs">−947 ﷼ DoD</span>
+          </span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">5</span>
+          <span class="lb-name">الوزيرية</span>
+          <div class="lb-bar"><div class="lb-bar-fill mid" style="width:48%"></div></div>
+          <span class="lb-num">3,400 <span class="unit">﷼</span></span>
+          <span class="lb-delta neu">
+            <span class="pct">71 ﷼/طلب</span>
+            <span class="abs">متوسط منخفض</span>
+          </span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">6</span>
+          <span class="lb-name">المدينة</span>
+          <div class="lb-bar"><div class="lb-bar-fill weak" style="width:39%"></div></div>
+          <span class="lb-num">2,729 <span class="unit">﷼</span></span>
+          <span class="lb-delta neg">
+            <span class="pct">−14.8%</span>
+            <span class="abs">−4,059 ﷼ WoW</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14-day trend -->
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="eyebrow">14-DAY TREND · اتجاه الأسبوع</span>
+          <div class="title">هذا الأسبوع vs الشهر السابق</div>
+        </div>
+        <span class="meta">+10.2% · +17,955 ﷼</span>
+      </div>
+      <div class="legend-pills">
+        <span class="lp"><span class="lp-dot" style="background:var(--ink)"></span>هذا الأسبوع (193,705 ﷼)</span>
+        <span class="lp"><span class="lp-dot" style="background:var(--gold-light)"></span>نفس الأسبوع الشهر السابق (175,750 ﷼)</span>
+      </div>
+      <div class="trend-wrap">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ━━━━━━━━━━━ BRANCH PRODUCTIVITY ━━━━━━━━━━━ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">BRANCH PRODUCTIVITY · إنتاجية الفروع</span>
+        <div class="title">إنتاجية وانضباط الخصم لكل فرع · أمس <span class="simulated-tag">📊 محاكاة</span></div>
+      </div>
+      <div class="meta">
+        7 فروع · 337 طلب · 28,000 ﷼<br>
+        مرتب حسب الإيراد
+      </div>
+    </div>
+
+    <table class="bp-table">
+      <thead>
+        <tr>
+          <th>الفرع</th>
+          <th class="num-col">الطلبات</th>
+          <th class="num-col">متوسط الفاتورة</th>
+          <th class="num-col">الإيراد</th>
+          <th class="num-col">% من الكل</th>
+          <th class="num-col">نسبة الخصم</th>
+          <th class="num-col">الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="bp-name">الأجاويد</span><span class="bp-code">AJA</span></td>
+          <td class="num-col"><span class="bp-num">78</span></td>
+          <td class="num-col"><span class="bp-num">95 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">7,410 ﷼</span></td>
+          <td class="num-col">26.5%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill ok" style="width:20%"></div></div>
+              <span class="bp-disc-pct">1.2%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag top">🏆 الأبرز</span></td>
+        </tr>
+        <tr>
+          <td><span class="bp-name">مروى</span><span class="bp-code">MAR</span></td>
+          <td class="num-col"><span class="bp-num">62</span></td>
+          <td class="num-col"><span class="bp-num">86 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">5,332 ﷼</span></td>
+          <td class="num-col">19.0%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill ok" style="width:28%"></div></div>
+              <span class="bp-disc-pct">1.7%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag normal">طبيعي</span></td>
+        </tr>
+        <tr>
+          <td><span class="bp-name">الحمدانية</span><span class="bp-code">HAM</span></td>
+          <td class="num-col"><span class="bp-num">55</span></td>
+          <td class="num-col"><span class="bp-num">82 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">4,510 ﷼</span></td>
+          <td class="num-col">16.1%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill ok" style="width:37%"></div></div>
+              <span class="bp-disc-pct">2.2%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag normal">طبيعي</span></td>
+        </tr>
+        <tr>
+          <td><span class="bp-name">الصفا</span><span class="bp-code">Safa</span></td>
+          <td class="num-col"><span class="bp-num">48</span></td>
+          <td class="num-col"><span class="bp-num">80 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">3,840 ﷼</span></td>
+          <td class="num-col">13.7%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill ok" style="width:40%"></div></div>
+              <span class="bp-disc-pct">2.4%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag normal">طبيعي</span></td>
+        </tr>
+        <tr>
+          <td><span class="bp-name">الوزيرية</span><span class="bp-code">WAZ</span></td>
+          <td class="num-col"><span class="bp-num">42</span></td>
+          <td class="num-col"><span class="bp-num">78 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">3,276 ﷼</span></td>
+          <td class="num-col">11.7%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill ok" style="width:25%"></div></div>
+              <span class="bp-disc-pct">1.5%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag normal">طبيعي</span></td>
+        </tr>
+        <tr>
+          <td><span class="bp-name">المدينة</span><span class="bp-code">DEF</span></td>
+          <td class="num-col"><span class="bp-num">36</span></td>
+          <td class="num-col"><span class="bp-num">73 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">2,628 ﷼</span></td>
+          <td class="num-col">9.4%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill high" style="width:83%"></div></div>
+              <span class="bp-disc-pct" style="color:var(--crimson);font-weight:700">5.0%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag review">⚠️ مراجعة</span></td>
+        </tr>
+        <tr>
+          <td><span class="bp-name">المركزي</span><span class="bp-code">COE · HQ</span></td>
+          <td class="num-col"><span class="bp-num">16</span></td>
+          <td class="num-col"><span class="bp-num">63 ﷼</span></td>
+          <td class="num-col"><span class="bp-num">1,008 ﷼</span></td>
+          <td class="num-col">3.6%</td>
+          <td class="num-col">
+            <div class="bp-disc-wrap">
+              <div class="bp-disc-bar"><div class="bp-disc-fill ok" style="width:22%"></div></div>
+              <span class="bp-disc-pct">1.3%</span>
+            </div>
+          </td>
+          <td class="num-col"><span class="bp-flag normal">طبيعي</span></td>
+        </tr>
+        <tr class="bp-totals">
+          <td>الإجمالي · 7 فروع</td>
+          <td class="num-col">337</td>
+          <td class="num-col">83 ﷼ متوسط</td>
+          <td class="num-col">28,000 ﷼</td>
+          <td class="num-col">100%</td>
+          <td class="num-col">2.1%</td>
+          <td class="num-col">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bp-summary">
+      <div class="bp-sum-card win">
+        <div class="bp-sum-label">🏆 الأعلى إنتاجية وانضباطاً</div>
+        <div class="bp-sum-title">الأجاويد</div>
+        <div class="bp-sum-detail">
+          <span class="num">78</span> طلب · <span class="num">7,410 ﷼</span> · متوسط فاتورة
+          <span class="num">95 ﷼</span>. خصم <span class="num">1.2%</span> فقط — أقل من نصف متوسط الشبكة.
+        </div>
+      </div>
+      <div class="bp-sum-card warn">
+        <div class="bp-sum-label">⚠️ تحتاج مراجعة فورية</div>
+        <div class="bp-sum-title">المدينة</div>
+        <div class="bp-sum-detail">
+          خصم <span class="num">5.0%</span> (<span class="num">2.4×</span> متوسط الشبكة).
+          تقدير الفائت: <span class="num">~76 ﷼</span>. مع كونها الأضعف إيراداً — مزدوجة المشكلة.
+        </div>
+      </div>
+      <div class="bp-sum-card">
+        <div class="bp-sum-label">📊 ملاحظة هيكلية</div>
+        <div class="bp-sum-title">التباين <span class="num">7×</span> بين الفروع</div>
+        <div class="bp-sum-detail">
+          الأجاويد (<span class="num">7,410 ﷼</span>) يبيع <span class="num">7</span> أضعاف المركزي
+          (<span class="num">1,008 ﷼</span>). طبيعي لو COE مقر، يستحق مراجعة الجدوى.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ HOURLY HEATMAP ━━━━━━━━━━━ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">HOURLY HEATMAP · خريطة الساعات</span>
+        <div class="title">توزيع المبيعات بالساعة لكل فرع <span class="simulated-tag">📊 محاكاة</span></div>
+      </div>
+      <div class="meta">
+        متوسط آخر 7 أيام · % من إيراد اليوم<br>
+        ⛔ المربعات بحدّ أحمر = ذروة الفرع
+      </div>
+    </div>
+
+    <div class="ht-wrap">
+      <div class="ht-grid">
+        <span></span>
+        <span class="ht-hour-label">6ص</span><span class="ht-hour-label">7</span>
+        <span class="ht-hour-label">8</span><span class="ht-hour-label">9</span>
+        <span class="ht-hour-label">10</span><span class="ht-hour-label">11</span>
+        <span class="ht-hour-label">12ظ</span><span class="ht-hour-label">1م</span>
+        <span class="ht-hour-label">2</span><span class="ht-hour-label">3</span>
+        <span class="ht-hour-label">4</span><span class="ht-hour-label">5</span>
+        <span class="ht-hour-label">6</span><span class="ht-hour-label">7</span>
+        <span class="ht-hour-label">8</span><span class="ht-hour-label">9</span>
+        <span class="ht-hour-label">10</span><span class="ht-hour-label">11م</span>
+
+        <span class="ht-branch-label">الأجاويد</span>
+        <span class="ht-cell l0">1</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">3</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l3">9</span><span class="ht-cell l4">12</span>
+        <span class="ht-cell l5 peak">14</span><span class="ht-cell l4">11</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l0">1</span>
+
+        <span class="ht-branch-label">الحمدانية</span>
+        <span class="ht-cell l0">1</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">3</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l3">8</span><span class="ht-cell l4">11</span>
+        <span class="ht-cell l4 peak">12</span><span class="ht-cell l3">9</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l0">2</span>
+
+        <span class="ht-branch-label">مروى</span>
+        <span class="ht-cell l0">1</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">3</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l3">9</span><span class="ht-cell l4">13</span>
+        <span class="ht-cell l5 peak">15</span><span class="ht-cell l4">10</span>
+        <span class="ht-cell l2">7</span><span class="ht-cell l0">1</span>
+
+        <span class="ht-branch-label">المدينة</span>
+        <span class="ht-cell l0">2</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">5</span><span class="ht-cell l1">5</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l1">5</span><span class="ht-cell l1">5</span>
+        <span class="ht-cell l1">5</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l2">7</span><span class="ht-cell l3">8</span>
+        <span class="ht-cell l3 peak">9</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l1">3</span>
+
+        <span class="ht-branch-label">الوزيرية</span>
+        <span class="ht-cell l1">2</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l3">9</span><span class="ht-cell l3">8</span>
+        <span class="ht-cell l2">7</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l3 peak">8</span><span class="ht-cell l3">9</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l1">5</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">5</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">2</span><span class="ht-cell l0">0</span>
+
+        <span class="ht-branch-label">الصفا</span>
+        <span class="ht-cell l0">1</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">5</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">3</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l2">5</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">3</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l3">10</span><span class="ht-cell l4">12</span>
+        <span class="ht-cell l4 peak">13</span><span class="ht-cell l3">9</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l0">3</span>
+
+        <span class="ht-branch-label">المركزي · HQ</span>
+        <span class="ht-cell l1">3</span><span class="ht-cell l2">6</span>
+        <span class="ht-cell l3">9</span><span class="ht-cell l3 peak">10</span>
+        <span class="ht-cell l3">8</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l1">5</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">4</span><span class="ht-cell l1">5</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l2">7</span>
+        <span class="ht-cell l2">6</span><span class="ht-cell l1">4</span>
+        <span class="ht-cell l1">2</span><span class="ht-cell l0">1</span>
+      </div>
+    </div>
+
+    <div class="ht-legend">
+      <span>أقل</span>
+      <div class="ht-legend-scale">
+        <span class="swatch" style="background:var(--paper-2)"></span>
+        <span class="swatch" style="background:#EFE4C8"></span>
+        <span class="swatch" style="background:#E0CFA0"></span>
+        <span class="swatch" style="background:#C9B477"></span>
+        <span class="swatch" style="background:var(--gold)"></span>
+        <span class="swatch" style="background:var(--gold-deep)"></span>
+      </div>
+      <span>أكثر</span>
+    </div>
+
+    <div class="ht-insights">
+      <div class="ht-insight green">
+        <div class="ht-insight-label">⏰ الذروة العامة</div>
+        <div class="ht-insight-title">7-9 مساءً</div>
+        <div class="ht-insight-detail">
+          <span class="num">35%</span> من إيراد اليوم في 3 ساعات. توصية: نوبة ثانية تبدأ <span class="num">5:30</span>م.
+        </div>
+      </div>
+      <div class="ht-insight red">
+        <div class="ht-insight-label">📉 نقطة الضعف</div>
+        <div class="ht-insight-title">10-12 صباحاً</div>
+        <div class="ht-insight-detail">
+          <span class="num">8%</span> فقط من اليوم. فرصة لإطلاق عرض "كوفي بريك" أو ساعة قهوة مخفضة.
+        </div>
+      </div>
+      <div class="ht-insight">
+        <div class="ht-insight-label">🔀 الاختلاف بين الفروع</div>
+        <div class="ht-insight-title">نمط الوزيرية مختلف</div>
+        <div class="ht-insight-detail">
+          الوزيرية ذروتها <span class="num">12</span>ظ (لانش العمّال). باقي الفروع <span class="num">8</span>م.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ DELIVERY CHANNELS — 9 APPS + DIRECT POS ━━━━━━━━━━━ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">SALES CHANNELS · 10 قنوات</span>
+        <div class="title">قنوات البيع والتوصيل <span class="simulated-tag">📊 محاكاة</span></div>
+      </div>
+      <span class="meta">أمس · مباشر + 9 تطبيقات توصيل · شامل ضريبة</span>
+    </div>
+    <div class="channels-layout">
+
+      <!-- Top: donut + summary stats -->
+      <div class="ch-top">
+        <div class="donut-wrap">
+          <canvas id="donutChart"></canvas>
+          <div class="donut-center">
+            <div class="ribbon">إجمالي أمس</div>
+            <div class="big">28,000</div>
+            <div class="small">﷼ · شامل VAT</div>
+          </div>
+        </div>
+        <div class="ch-stats">
+          <div class="ch-stat crimson">
+            <div class="label">عمولات التطبيقات (شاملة رسم الدفع 2.5%)</div>
+            <div class="val">−3,032<span class="unit"> ﷼</span></div>
+            <div class="meta">10.8% من الإيراد</div>
+          </div>
+          <div class="ch-stat crimson">
+            <div class="label">رسوم التوصيل (ثابت لكل طلب)</div>
+            <div class="val">−1,505<span class="unit"> ﷼</span></div>
+            <div class="meta">5.4% من الإيراد · 202 طلب توصيل</div>
+          </div>
+          <div class="ch-stat emerald">
+            <div class="label">الصافي بعد العمولات والتوصيل</div>
+            <div class="val">23,463<span class="unit"> ﷼</span></div>
+            <div class="meta">83.8% من الإيراد</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full table: all 10 channels -->
+      <div class="ch-table-wrap">
+        <table class="ch-table">
+          <thead>
+            <tr>
+              <th>القناة</th>
+              <th>الطلبات</th>
+              <th>الإيراد ﷼</th>
+              <th>%</th>
+              <th>عمولة</th>
+              <th>عمولة ﷼</th>
+              <th>توصيل ﷼</th>
+              <th>الصافي ﷼</th>
+              <th>الوصول</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-direct)"></span>المباشر (POS)<span class="secondary">شبكة + كاش</span></td>
+              <td>135</td>
+              <td>11,200</td>
+              <td>40.0%</td>
+              <td>1.5%</td>
+              <td>168</td>
+              <td>—</td>
+              <td class="ch-net">11,032</td>
+              <td><span class="ch-eta now">اليوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-hunger)"></span>هنقرستيشن<span class="secondary">HungerStation</span></td>
+              <td>61</td>
+              <td>5,040</td>
+              <td>18.0%</td>
+              <td>18.5%</td>
+              <td>932</td>
+              <td>732</td>
+              <td class="ch-net">3,376</td>
+              <td><span class="ch-eta">+14 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-jahez)"></span>جاهز<span class="secondary">Jahez</span></td>
+              <td>40</td>
+              <td>3,360</td>
+              <td>12.0%</td>
+              <td>15.5%</td>
+              <td>521</td>
+              <td>—</td>
+              <td class="ch-net">2,839</td>
+              <td><span class="ch-eta">+7 أيام</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-mrsool)"></span>مرسول<span class="secondary">Mrsool</span></td>
+              <td>27</td>
+              <td>2,240</td>
+              <td>8.0%</td>
+              <td>14.5%</td>
+              <td>325</td>
+              <td>297</td>
+              <td class="ch-net">1,618</td>
+              <td><span class="ch-eta">+21 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-chefz)"></span>ذا شيفز<span class="secondary">The Chefz</span></td>
+              <td>20</td>
+              <td>1,680</td>
+              <td>6.0%</td>
+              <td>18.5%</td>
+              <td>311</td>
+              <td>—</td>
+              <td class="ch-net">1,369</td>
+              <td><span class="ch-eta">+30 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-ninja)"></span>نينجا<span class="secondary">Ninja</span></td>
+              <td>13</td>
+              <td>1,120</td>
+              <td>4.0%</td>
+              <td>18.5%</td>
+              <td>207</td>
+              <td>156</td>
+              <td class="ch-net">757</td>
+              <td><span class="ch-eta">+14 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-toyou)"></span>تو يو<span class="secondary">ToYou</span></td>
+              <td>13</td>
+              <td>1,120</td>
+              <td>4.0%</td>
+              <td>19.5%</td>
+              <td>218</td>
+              <td>130</td>
+              <td class="ch-net">772</td>
+              <td><span class="ch-eta">+21 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-keeta)"></span>كيتا<span class="secondary">Keeta</span></td>
+              <td>10</td>
+              <td>840</td>
+              <td>3.0%</td>
+              <td>20.5%</td>
+              <td>172</td>
+              <td>90</td>
+              <td class="ch-net">578</td>
+              <td><span class="ch-eta">+30 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-mandoob)"></span>مستر مندوب<span class="secondary">Mr.Mandoob</span></td>
+              <td>10</td>
+              <td>840</td>
+              <td>3.0%</td>
+              <td>15.5%</td>
+              <td>130</td>
+              <td>100</td>
+              <td class="ch-net">610</td>
+              <td><span class="ch-eta">+21 يوم</span></td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:var(--c-taker)"></span>تيكر<span class="secondary">Taker</span></td>
+              <td>8</td>
+              <td>560</td>
+              <td>2.0%</td>
+              <td>8.5%</td>
+              <td>48</td>
+              <td>—</td>
+              <td class="ch-net">512</td>
+              <td><span class="ch-eta">+14 يوم</span></td>
+            </tr>
+            <tr class="totals">
+              <td>الإجمالي · 10 قنوات</td>
+              <td>337</td>
+              <td>28,000</td>
+              <td>100%</td>
+              <td>10.8% متوسط</td>
+              <td>3,032</td>
+              <td>1,505</td>
+              <td>23,463</td>
+              <td>متوسط +14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ DISCOUNTS & PROMOS ━━━━━━━━━━━ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">DISCOUNTS & PROMOS · الخصومات والعروض</span>
+        <div class="title">الخصومات على المنتجات وتأثيرها <span class="simulated-tag">📊 محاكاة</span></div>
+      </div>
+      <span class="meta">أمس · 7 أنواع · 63 طلب مع خصم · شامل ضريبة</span>
+    </div>
+    <div class="channels-layout">
+
+      <!-- Top: 4 summary stats -->
+      <div class="ch-stats" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="ch-stat crimson">
+          <div class="label">إجمالي الخصومات</div>
+          <div class="val">−588<span class="unit"> ﷼</span></div>
+          <div class="meta">شامل ضريبة · 7 أنواع نشطة</div>
+        </div>
+        <div class="ch-stat crimson">
+          <div class="label">التأثير على الإيراد</div>
+          <div class="val">2.10<span class="unit">%</span></div>
+          <div class="meta">من 28,000 ﷼ → 27,412 ﷼</div>
+        </div>
+        <div class="ch-stat">
+          <div class="label">الطلبات المتأثرة بالخصم</div>
+          <div class="val">63<span class="unit"> / 337</span></div>
+          <div class="meta">18.7% من الطلبات</div>
+        </div>
+        <div class="ch-stat">
+          <div class="label">متوسط الخصم لكل طلب</div>
+          <div class="val">9.33<span class="unit"> ﷼</span></div>
+          <div class="meta">≈ 11.2% من قيمة الطلب</div>
+        </div>
+      </div>
+
+      <!-- Detailed breakdown table -->
+      <div class="ch-table-wrap">
+        <table class="ch-table">
+          <thead>
+            <tr>
+              <th>نوع الخصم</th>
+              <th>الطلبات</th>
+              <th>إجمالي الخصم ﷼</th>
+              <th>متوسط/طلب ﷼</th>
+              <th>الحجم النسبي</th>
+              <th>% من الخصومات</th>
+              <th>% من الإيراد</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ch-color" style="background:#A02020"></span>خصم تسويقي (حملات)<span class="secondary">Marketing campaigns</span></td>
+              <td>14</td>
+              <td>175</td>
+              <td>12.50</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:100%; background:#A02020;"></div></div></td>
+              <td>29.8%</td>
+              <td class="impact-cell">0.63%</td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:#C12D2D"></span>خصم 10%<span class="secondary">كوبون عام</span></td>
+              <td>18</td>
+              <td>125</td>
+              <td>6.94</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:71%; background:#C12D2D;"></div></div></td>
+              <td>21.3%</td>
+              <td class="impact-cell">0.45%</td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:#D4901E"></span>خصم 15%<span class="secondary">كوبون مميّز</span></td>
+              <td>12</td>
+              <td>105</td>
+              <td>8.75</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:60%; background:#D4901E;"></div></div></td>
+              <td>17.9%</td>
+              <td class="impact-cell">0.38%</td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:#B86E11"></span>خصم 20%<span class="secondary">كوبون VIP / نادر</span></td>
+              <td>6</td>
+              <td>75</td>
+              <td>12.50</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:43%; background:#B86E11;"></div></div></td>
+              <td>12.8%</td>
+              <td class="impact-cell">0.27%</td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:#185FA5"></span>خصم موظف<span class="secondary">Internal staff</span></td>
+              <td>4</td>
+              <td>50</td>
+              <td>12.50</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:29%; background:#185FA5;"></div></div></td>
+              <td>8.5%</td>
+              <td class="impact-cell">0.18%</td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:#9D5DEE"></span>خصم ولاء / VIP<span class="secondary">عميل متكرر</span></td>
+              <td>6</td>
+              <td>35</td>
+              <td>5.83</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:20%; background:#9D5DEE;"></div></div></td>
+              <td>6.0%</td>
+              <td class="impact-cell">0.13%</td>
+            </tr>
+            <tr>
+              <td><span class="ch-color" style="background:#6C7686"></span>خصم يدوي (كاشير)<span class="secondary">Manual discretionary</span></td>
+              <td>3</td>
+              <td>23</td>
+              <td>7.67</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:13%; background:#6C7686;"></div></div></td>
+              <td>3.9%</td>
+              <td class="impact-cell">0.08%</td>
+            </tr>
+            <tr class="totals">
+              <td>الإجمالي · 7 أنواع</td>
+              <td>63</td>
+              <td>588</td>
+              <td>9.33</td>
+              <td><div class="disc-bar"><div class="disc-bar-fill" style="width:100%; background:linear-gradient(90deg, #A02020 0%, #B86E11 100%);"></div></div></td>
+              <td>100%</td>
+              <td>2.10%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Insight strip -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top: 4px;">
+        <div style="background: var(--paper-2); padding: 12px 14px; border-radius: 4px; border-right: 3px solid var(--amber); font-size: 12px; line-height: 1.55;">
+          <strong style="font-family:'Fraunces',serif; font-size:13px; color:var(--ink);">📊 الملاحظة الأولى</strong><br>
+          <span style="color:var(--steel-2);">
+            الخصم التسويقي (الحملات) يلتهم <span class="num">29.8%</span> من إجمالي الخصومات،
+            ويفترض مراجعة ROI الحملة قبل تجديدها.
+          </span>
+        </div>
+        <div style="background: var(--paper-2); padding: 12px 14px; border-radius: 4px; border-right: 3px solid var(--emerald); font-size: 12px; line-height: 1.55;">
+          <strong style="font-family:'Fraunces',serif; font-size:13px; color:var(--ink);">✅ الملاحظة الثانية</strong><br>
+          <span style="color:var(--steel-2);">
+            الخصم اليدوي (الكاشير) عند <span class="num">3.9%</span> فقط — رقابة جيدة،
+            بمعنى أن السياسة الداخلية محكمة.
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ CASH FLOW ━━━━━━━━━━━ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">CASH FLOW · شلال السيولة</span>
+        <div class="title">من الإيراد إلى الصافي الواصل <span class="simulated-tag">📊 محاكاة</span></div>
+      </div>
+      <span class="meta">أمس + توقعات 30 يوم · شامل ضريبة</span>
+    </div>
+    <div class="cash-grid">
+
+      <!-- Waterfall chart -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:6px;">من 28,000 ﷼ إلى صافي السيولة · 6 خطوات</div>
+        <div class="waterfall">
+          <canvas id="waterfallChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Pipeline -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px;">جدولة وصول الصافي · 30 يوم قادم</div>
+        <div class="pipe-head">
+          <span>متى</span>
+          <span>المصدر</span>
+          <span style="text-align:left;">صافي ﷼</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">اليوم</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-direct)"></span>المباشر POS</span>
+          <span class="pipe-amount">11,032</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+7ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-jahez)"></span>جاهز</span>
+          <span class="pipe-amount">2,839</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+14ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-hunger)"></span>هنقرستيشن</span>
+          <span class="pipe-amount">3,376</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+14ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-ninja)"></span>نينجا</span>
+          <span class="pipe-amount">757</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+14ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-taker)"></span>تيكر</span>
+          <span class="pipe-amount">512</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+21ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-mrsool)"></span>مرسول</span>
+          <span class="pipe-amount">1,618</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+21ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-toyou)"></span>تو يو</span>
+          <span class="pipe-amount">772</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+21ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-mandoob)"></span>مستر مندوب</span>
+          <span class="pipe-amount">610</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+30ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-chefz)"></span>ذا شيفز</span>
+          <span class="pipe-amount">1,369</span>
+        </div>
+        <div class="pipe-row">
+          <span class="pipe-when">+30ي</span>
+          <span class="pipe-source"><span class="pipe-dot" style="background:var(--c-keeta)"></span>كيتا</span>
+          <span class="pipe-amount">578</span>
+        </div>
+        <div class="cash-summary">
+          <span class="label">صافي يصلك من بيع أمس بعد كل الخصومات</span>
+          <span class="val">22,651 ﷼</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ PRODUCTS ROW · TOP 5 + BOTTOM 5 ━━━━━━━━━━━ -->
+  <div class="row" style="grid-template-columns: 1fr 1fr;">
+
+    <!-- Top 5 products -->
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="eyebrow">TOP PRODUCTS · الأعلى مبيعاً</span>
+          <div class="title">أفضل 5 منتجات أمس</div>
+        </div>
+        <span class="meta">308 قطعة · 10,762 ﷼ · شامل ضريبة</span>
+      </div>
+      <div>
+        <div class="product-row">
+          <span class="p-rank">1</span>
+          <span class="p-name">كيك المناسبات (متوسط)</span>
+          <span class="p-qty">98<span class="unit"> قطعة</span></span>
+          <span class="p-rev">4,116 ﷼</span>
+          <span class="p-trend chip-pos">+12% · +441</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank">2</span>
+          <span class="p-name">سينابون كلاسيك</span>
+          <span class="p-qty">76<span class="unit"> قطعة</span></span>
+          <span class="p-rev">2,584 ﷼</span>
+          <span class="p-trend chip-pos">+8% · +191</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank">3</span>
+          <span class="p-name">قهوة سعودي · لتر</span>
+          <span class="p-qty">54<span class="unit"> قطعة</span></span>
+          <span class="p-rev">1,890 ﷼</span>
+          <span class="p-trend chip-neg">−5% · −99</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank">4</span>
+          <span class="p-name">ميني كيك تشيز كيك</span>
+          <span class="p-qty">42<span class="unit"> قطعة</span></span>
+          <span class="p-rev">1,260 ﷼</span>
+          <span class="p-trend chip-neu">0%</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank">5</span>
+          <span class="p-name">دونات شوكولاتة</span>
+          <span class="p-qty">38<span class="unit"> قطعة</span></span>
+          <span class="p-rev">912 ﷼</span>
+          <span class="p-trend chip-pos">+14% · +112</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom 5 products -->
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="eyebrow">BOTTOM PRODUCTS · الأقل مبيعاً</span>
+          <div class="title">أضعف 5 منتجات أمس</div>
+        </div>
+        <span class="meta">11 قطعة · 490 ﷼ · 4.5% من المبيعات</span>
+      </div>
+      <div>
+        <div class="product-row">
+          <span class="p-rank" style="color:var(--crimson);">1</span>
+          <span class="p-name">كيك جاتو فرنسي كبير</span>
+          <span class="p-qty">1<span class="unit"> قطعة</span></span>
+          <span class="p-rev">165 ﷼</span>
+          <span class="p-trend chip-warn">🔍 مراجعة سعر</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank" style="color:var(--crimson);">2</span>
+          <span class="p-name">شعيرية بقلاوة بالفستق</span>
+          <span class="p-qty">2<span class="unit"> قطعة</span></span>
+          <span class="p-rev">96 ﷼</span>
+          <span class="p-trend chip-warn">📢 يحتاج تسويق</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank" style="color:var(--crimson);">3</span>
+          <span class="p-name">براوني صحي بدون سكر</span>
+          <span class="p-qty">2<span class="unit"> قطعة</span></span>
+          <span class="p-rev">70 ﷼</span>
+          <span class="p-trend chip-neu">🎯 نيش</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank" style="color:var(--crimson);">4</span>
+          <span class="p-name">تشيز كيك مانجو</span>
+          <span class="p-qty">3<span class="unit"> قطعة</span></span>
+          <span class="p-rev">84 ﷼</span>
+          <span class="p-trend chip-neu">🌱 موسمي</span>
+        </div>
+        <div class="product-row">
+          <span class="p-rank" style="color:var(--crimson);">5</span>
+          <span class="p-name">كيك جوز الهند</span>
+          <span class="p-qty">3<span class="unit"> قطعة</span></span>
+          <span class="p-rev">75 ﷼</span>
+          <span class="p-trend chip-neg">⚠️ متابعة</span>
+        </div>
+      </div>
+      <!-- Zero-sellers note -->
+      <div style="margin-top: 10px; padding: 10px 12px; background: var(--crimson-soft); border-right: 3px solid var(--crimson); border-radius: 3px; font-size: 11.5px; line-height: 1.55;">
+        <strong style="color: var(--crimson); font-weight: 700;">⛔ 12 منتج لم يُبَع أمس</strong>
+        <span style="color: var(--ink-soft);"> — من أصل 187 منتج نشط في الكتالوج (6.4%). قائمة المنتجات الراكدة متاحة للمراجعة الجذرية.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ━━━━━━━━━━━ INVENTORY TRANSFERS ━━━━━━━━━━━ -->
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">INVENTORY TRANSFERS · توصيات نقل المخزون</span>
+        <div class="title">🚚 أولوية النقل بين الفروع <span class="simulated-tag">📊 محاكاة</span></div>
+      </div>
+      <div class="meta">
+        محسوب من 7 مخازن · 187 منتج نشط<br>
+        مبني على: مخزون ÷ معدل السحب اليومي
+      </div>
+    </div>
+
+    <div class="tr-header">
+      <span>#</span>
+      <span>المنتج</span>
+      <span>من فرع</span>
+      <span></span>
+      <span>إلى فرع</span>
+      <span>الكمية</span>
+      <span>العجلة</span>
+    </div>
+
+    <div class="tr-row">
+      <span class="tr-rank">1</span>
+      <span class="tr-product"><span class="sku">SKU-2041</span>بقلاوة فستق · صينية</span>
+      <span class="tr-from">
+        <span class="tr-side-label">الأجاويد · AJA</span>
+        <span class="tr-branch-line">42 وحدة</span>
+        <span class="tr-cov high">تغطية 14 يوم</span>
+      </span>
+      <span class="tr-arrow">←</span>
+      <span class="tr-to">
+        <span class="tr-side-label">المدينة · DEF</span>
+        <span class="tr-branch-line">0 وحدة</span>
+        <span class="tr-cov critical">نفد ⛔</span>
+      </span>
+      <span class="tr-qty">15</span>
+      <span class="tr-urgency critical">عاجل اليوم</span>
+    </div>
+
+    <div class="tr-row">
+      <span class="tr-rank">2</span>
+      <span class="tr-product"><span class="sku">SKU-1108</span>سينابون كلاسيك · قطعة</span>
+      <span class="tr-from">
+        <span class="tr-side-label">المركزي · COE</span>
+        <span class="tr-branch-line">128 وحدة</span>
+        <span class="tr-cov high">تغطية 18 يوم</span>
+      </span>
+      <span class="tr-arrow">←</span>
+      <span class="tr-to">
+        <span class="tr-side-label">الصفا · Safa</span>
+        <span class="tr-branch-line">3 وحدة</span>
+        <span class="tr-cov critical">تغطية &lt;يوم</span>
+      </span>
+      <span class="tr-qty">40</span>
+      <span class="tr-urgency critical">عاجل اليوم</span>
+    </div>
+
+    <div class="tr-row">
+      <span class="tr-rank">3</span>
+      <span class="tr-product"><span class="sku">SKU-0892</span>كيك جاتو فرنسي · كبير</span>
+      <span class="tr-from">
+        <span class="tr-side-label">مروى · MAR</span>
+        <span class="tr-branch-line">22 وحدة</span>
+        <span class="tr-cov high">تغطية 28 يوم</span>
+      </span>
+      <span class="tr-arrow">←</span>
+      <span class="tr-to">
+        <span class="tr-side-label">الوزيرية · WAZ</span>
+        <span class="tr-branch-line">2 وحدة</span>
+        <span class="tr-cov low">تغطية 3 يوم</span>
+      </span>
+      <span class="tr-qty">12</span>
+      <span class="tr-urgency soon">خلال يومين</span>
+    </div>
+
+    <div class="tr-row">
+      <span class="tr-rank">4</span>
+      <span class="tr-product"><span class="sku">SKU-0454</span>تشيز كيك مانجو · قطعة</span>
+      <span class="tr-from">
+        <span class="tr-side-label">الأجاويد · AJA</span>
+        <span class="tr-branch-line">38 وحدة</span>
+        <span class="tr-cov high">تغطية 22 يوم</span>
+      </span>
+      <span class="tr-arrow">←</span>
+      <span class="tr-to">
+        <span class="tr-side-label">الحمدانية · HAM</span>
+        <span class="tr-branch-line">4 وحدة</span>
+        <span class="tr-cov low">تغطية يومين</span>
+      </span>
+      <span class="tr-qty">8</span>
+      <span class="tr-urgency soon">خلال يومين</span>
+    </div>
+
+    <div class="tr-row">
+      <span class="tr-rank">5</span>
+      <span class="tr-product"><span class="sku">SKU-1733</span>كروسان شوكولاتة · قطعة</span>
+      <span class="tr-from">
+        <span class="tr-side-label">مروى · MAR</span>
+        <span class="tr-branch-line">95 وحدة</span>
+        <span class="tr-cov high">تغطية 19 يوم</span>
+      </span>
+      <span class="tr-arrow">←</span>
+      <span class="tr-to">
+        <span class="tr-side-label">المدينة · DEF</span>
+        <span class="tr-branch-line">14 وحدة</span>
+        <span class="tr-cov low">تغطية 4 يوم</span>
+      </span>
+      <span class="tr-qty">25</span>
+      <span class="tr-urgency week">خلال أسبوع</span>
+    </div>
+
+    <div class="tr-summary">
+      <strong>💡 خلاصة التوصية</strong>
+      نقل <span class="num">100</span> وحدة في <span class="num">5</span> عمليات · يحفظ مبيعات
+      مقدرّة بـ <span class="num">2,840 ﷼</span> أسبوعياً وينقذ بقلاوة الفستق من النفاد في فرع المدينة.
+      شاحنة واحدة تكفي · زمن التنفيذ: <span class="num">3</span> ساعات.
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ HERO + LOSER ROW ━━━━━━━━━━━ -->
+  <div class="row" style="grid-template-columns: 1fr 1fr;">
+    <div class="spot-card hero">
+      <div class="spot-eyebrow">🏆 الفرع الأبرز — يستحق الإشادة</div>
+      <div class="spot-name">الأجاويد</div>
+      <div class="spot-metric">
+        <span class="delta-arrow">▲</span>
+        +39.9%
+        <span class="delta-abs">(+1,455 ﷼ vs أمس · 3,645 → 5,100)</span>
+      </div>
+      <div class="spot-note">
+        أعلى نمو يومي في الشبكة. اقتراح: نقل أفضل ممارساتهم — توقيت الإنتاج، عرض المنتجات، التعامل مع تطبيق هنقرستيشن — لباقي الفروع.
+      </div>
+    </div>
+    <div class="spot-card loser">
+      <div class="spot-eyebrow">⚠️ يحتاج انتباه فوري</div>
+      <div class="spot-name">المدينة</div>
+      <div class="spot-metric">
+        <span class="delta-arrow">▼</span>
+        −14.8%
+        <span class="delta-abs">(−4,059 ﷼ أسبوعي · 27,400 vs 31,459)</span>
+      </div>
+      <div class="spot-note">
+        الفرع الوحيد المنكمش مقارنة بالشهر السابق. مرتجعات أعلى من المعدل أيضاً. يُقترح زيارة ميدانية اليوم لمراجعة التشغيل والمخزون.
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━ ALERTS ━━━━━━━━━━━ -->
+  <div class="alerts">
+    <div class="alert crit">
+      <span class="alert-icon">🚨</span>
+      <div class="alert-body">
+        <strong>المدينة — انكماش أسبوعي</strong><br>
+        فرع واحد فقط ينكمش <span class="num-inline">−14.8%</span> · <span class="num-inline">−4,059 ﷼</span>. يقترح زيارة فورية.
+      </div>
+    </div>
+    <div class="alert warn">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-body">
+        <strong>الوزيرية — متوسط طلب منخفض</strong><br>
+        متوسط <span class="num-inline">71 ﷼</span> مقابل <span class="num-inline">83 ﷼</span> للشبكة (الفرق <span class="num-inline">−12 ﷼</span>).
+      </div>
+    </div>
+    <div class="alert ok">
+      <span class="alert-icon">✅</span>
+      <div class="alert-body">
+        <strong>المرتجعات في الحد الصحي</strong><br>
+        المعدل <span class="num-inline">0.8%</span> · <span class="num-inline">224 ﷼</span> أقل من حد <span class="num-inline">1.5%</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━ VAT COUNTER ━━━━━━━━━━━━━━━━━ -->
+  <section class="vat-section">
+    <div class="vat-head">
+      <div>
+        <span class="eyebrow" style="color:var(--gold-light);">TAX COMPLIANCE · امتثال ضريبي</span>
+        <div class="title">عدّاد ضريبة القيمة المضافة المستحقة</div>
+      </div>
+      <span class="meta">نسبة الضريبة 15% · ZATCA · تحديث يومي 06:00</span>
+    </div>
+
+    <div class="vat-grid">
+
+      <!-- Quarterly counter -->
+      <div class="vat-card q-card">
+        <div class="vat-card-eyebrow">
+          <span class="vat-card-period">الربع الثاني · Q2 2026</span>
+          <span class="vat-card-tag">جارٍ</span>
+        </div>
+        <div class="vat-card-amount">147,985<span class="unit">﷼</span></div>
+        <div class="vat-card-label">إجمالي الضريبة المستحقة على مبيعات الربع حتى الآن</div>
+
+        <div class="vat-stats">
+          <div class="vat-stat">
+            <div class="label">إيراد الربع (شامل)</div>
+            <div class="val">1,134,552<span class="unit"> ﷼</span></div>
+          </div>
+          <div class="vat-stat">
+            <div class="label">إيراد قبل الضريبة</div>
+            <div class="val">986,567<span class="unit"> ﷼</span></div>
+          </div>
+        </div>
+
+        <div class="vat-progress">
+          <div class="vat-progress-fill" style="width:45%"></div>
+        </div>
+        <div class="vat-progress-meta">
+          <span>1 أبريل → 30 يونيو</span>
+          <span>41 من 91 يوم (45%)</span>
+        </div>
+
+        <div class="vat-due">
+          <span class="label">📅 موعد تقديم الإقرار</span>
+          <span>
+            <span class="countdown">81 يوم</span>
+            <span class="date">31 يوليو 2026</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Annual counter -->
+      <div class="vat-card">
+        <div class="vat-card-eyebrow">
+          <span class="vat-card-period year">السنة المالية · YTD 2026</span>
+          <span class="vat-card-tag year">تجميعي</span>
+        </div>
+        <div class="vat-card-amount">473,217<span class="unit">﷼</span></div>
+        <div class="vat-card-label">إجمالي الضريبة المستحقة على مبيعات السنة حتى اليوم</div>
+
+        <div class="vat-stats">
+          <div class="vat-stat">
+            <div class="label">إيراد السنة (شامل)</div>
+            <div class="val">3,628,000<span class="unit"> ﷼</span></div>
+          </div>
+          <div class="vat-stat">
+            <div class="label">إيراد قبل الضريبة</div>
+            <div class="val">3,154,783<span class="unit"> ﷼</span></div>
+          </div>
+        </div>
+
+        <div class="vat-progress">
+          <div class="vat-progress-fill" style="width:36%"></div>
+        </div>
+        <div class="vat-progress-meta">
+          <span>1 يناير → 31 ديسمبر</span>
+          <span>131 من 365 يوم (36%)</span>
+        </div>
+
+        <div class="vat-due">
+          <span class="label">🧾 توزّع على 4 إقرارات ربعية</span>
+          <span>
+            <span class="date">Q1 ✅ · Q2 ⏳ · Q3 · Q4</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vat-rate-note">
+      VAT = إيراد شامل × (15 ÷ 115) = إيراد شامل × 13.043% · المعادلة معتمدة من هيئة الزكاة والضريبة والجمارك السعودية
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━ FOOTER ━━━━━━━━━━━ -->
+  <div class="footer-strip">
+    <span>DASHBOARD V2.6 · DAILY 06:00 AST · GITHUB ACTIONS · ODOO POS LIVE</span>
+    <span class="right">— compass of commercial excellence —</span>
+  </div>
+
+</div>
+
+<script>
+// ━━━━━━━ Chart.js defaults ━━━━━━━
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#4A5666';
+Chart.defaults.borderColor = '#E0D9C5';
+
+// ━━━━━━━ 14-day trend ━━━━━━━
+const trendCtx = document.getElementById('trendChart').getContext('2d');
+new Chart(trendCtx, {
+  type: 'line',
+  data: {
+    labels: ['الإث','الثل','الأر','الخم','الجم','الس','الأح'],
+    datasets: [
+      {
+        label: 'هذا الأسبوع',
+        data: [22500, 24800, 26100, 28200, 41514, 22390, 28000],
+        borderColor: '#0E1A2B',
+        backgroundColor: 'rgba(14,26,43,0.05)',
+        tension: 0.35,
+        fill: true,
+        borderWidth: 2.5,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#0E1A2B',
+        pointBorderColor: '#FAF6EE',
+        pointBorderWidth: 2,
+      },
+      {
+        label: 'الشهر السابق',
+        data: [20100, 22300, 23800, 25400, 36240, 20500, 27410],
+        borderColor: '#D4B062',
+        backgroundColor: 'transparent',
+        tension: 0.35,
+        borderWidth: 2,
+        borderDash: [5, 4],
+        pointRadius: 3,
+        pointBackgroundColor: '#D4B062',
+        pointBorderColor: '#FAF6EE',
+        pointBorderWidth: 1.5,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0E1A2B',
+        titleFont: { family: "'Tajawal',sans-serif", weight: 700 },
+        bodyFont: { family: "'IBM Plex Mono',monospace" },
+        padding: 10,
+        cornerRadius: 4,
+        callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y.toLocaleString()} ﷼` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { family: "'Tajawal',sans-serif" } } },
+      y: { grid: { color: '#EFEAD9' }, ticks: { callback: (v) => (v/1000) + 'K' } }
+    }
+  }
+});
+
+// ━━━━━━━ Donut chart — 10 channels (POS + 9 apps) ━━━━━━━
+const donutCtx = document.getElementById('donutChart').getContext('2d');
+new Chart(donutCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['المباشر POS','هنقرستيشن','جاهز','مرسول','ذا شيفز','نينجا','تو يو','كيتا','مستر مندوب','تيكر'],
+    datasets: [{
+      data: [11200, 5040, 3360, 2240, 1680, 1120, 1120, 840, 840, 560],
+      backgroundColor: ['#1F6F52','#FA9F2E','#D62E40','#16B584','#9D5DEE','#1A1A2E','#FF6B35','#FECD32','#00A85A','#2BAEDC'],
+      borderColor: '#FFFFFF',
+      borderWidth: 2.5,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0E1A2B',
+        bodyFont: { family: "'IBM Plex Mono',monospace" },
+        padding: 10,
+        cornerRadius: 4,
+        callbacks: {
+          label: (c) => {
+            const total = c.dataset.data.reduce((a,b)=>a+b,0);
+            const pct = (c.parsed/total*100).toFixed(1);
+            return ` ${c.label}: ${c.parsed.toLocaleString()} ﷼ (${pct}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+
+// ━━━━━━━ Waterfall chart — 6 steps with delivery fees ━━━━━━━
+const wfCtx = document.getElementById('waterfallChart').getContext('2d');
+new Chart(wfCtx, {
+  type: 'bar',
+  data: {
+    labels: ['الإيراد', '−عمولات', '−توصيل', '−خصومات', '−مرتجعات', 'الصافي'],
+    datasets: [
+      { label: 'base', data: [0, 24968, 23463, 22875, 22651, 0], backgroundColor: 'rgba(0,0,0,0)', stack: 's' },
+      { label: 'القيمة',
+        data: [28000, -3032, -1505, -588, -224, 22651],
+        backgroundColor: ['#1F6F52','#A02020','#A02020','#B86E11','#A02020','#B58A2C'],
+        stack: 's', borderRadius: 3, barThickness: 32
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0E1A2B',
+        bodyFont: { family: "'IBM Plex Mono',monospace" },
+        padding: 10,
+        cornerRadius: 4,
+        callbacks: { label: (c) => c.dataset.label === 'base' ? null : ` ${Math.abs(c.parsed.y).toLocaleString()} ﷼` }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { family: "'Tajawal',sans-serif", weight: '600', size: 10.5 } } },
+      y: { grid: { color: '#EFEAD9' }, ticks: { callback: (v) => (v/1000) + 'K ﷼' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
