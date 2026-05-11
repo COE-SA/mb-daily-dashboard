@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 بوصلة التميز التجارية - السكريبت اليومي للسحب من Odoo
-يعمل تلقائياً عبر GitHub Actions كل يوم 6 صباحاً (3 UTC)
+يستخدم /jsonrpc endpoint (متوافق مع Odoo Online + API Keys)
 """
 import os
 import json
@@ -21,73 +21,77 @@ BRANCH_MAP = {
     7: 'المدينة',   8: 'الوزيرية', 9: 'الصفا'
 }
 
-# ─── الاتصال مع Odoo ────────────────────────────────────────────────────
-session = requests.Session()
+# ─── JSON-RPC client (يستخدم /jsonrpc - يدعم API Keys في Odoo Online) ──
+JSONRPC_URL = f'{ODOO_URL.rstrip("/")}/jsonrpc'
+
+def jsonrpc(service, method, args):
+    """استدعاء JSON-RPC"""
+    r = requests.post(
+        JSONRPC_URL,
+        json={
+            'jsonrpc': '2.0',
+            'method': 'call',
+            'params': {'service': service, 'method': method, 'args': args}
+        },
+        timeout=30
+    )
+    data = r.json()
+    if 'error' in data:
+        raise Exception(f"Odoo error: {data['error']}")
+    return data.get('result')
 
 def authenticate():
-    """تسجيل دخول والحصول على UID"""
-    r = session.post(
-        f'{ODOO_URL}/web/session/authenticate',
-        json={'jsonrpc':'2.0','method':'call','params':{
-            'db': ODOO_DB, 'login': ODOO_USER, 'password': ODOO_API_KEY
-        }}
-    )
-    result = r.json().get('result', {})
-    uid = result.get('uid')
+    """تسجيل دخول للحصول على UID"""
+    uid = jsonrpc('common', 'authenticate', [ODOO_DB, ODOO_USER, ODOO_API_KEY, {}])
     if not uid:
-        raise Exception(f"فشل تسجيل الدخول: {r.json()}")
+        raise Exception("فشل تسجيل الدخول - تحقق من البيانات")
     return uid
 
-def call(model, method, args, kwargs=None):
-    """استدعاء API"""
+def execute(uid, model, method, args, kwargs=None):
+    """استدعاء model method"""
     kwargs = kwargs or {}
-    r = session.post(
-        f'{ODOO_URL}/web/dataset/call_kw',
-        json={'jsonrpc':'2.0','method':'call','params':{
-            'model': model, 'method': method, 'args': args, 'kwargs': kwargs
-        }}
-    )
-    return r.json().get('result')
+    return jsonrpc('object', 'execute_kw', [
+        ODOO_DB, uid, ODOO_API_KEY, model, method, args, kwargs
+    ])
 
-def get_sales(start_date, end_date, config_id=None):
+def get_sales(uid, start_date, end_date, config_id=None):
     """جلب إجمالي المبيعات لفترة"""
     domain = [
-        ['date_order','>=', f'{start_date} 00:00:00'],
-        ['date_order','<=', f'{end_date} 23:59:59'],
-        ['state','in',['done','invoiced','paid']]
+        ['date_order', '>=', f'{start_date} 00:00:00'],
+        ['date_order', '<=', f'{end_date} 23:59:59'],
+        ['state', 'in', ['done', 'invoiced', 'paid']]
     ]
     if config_id:
-        domain.append(['config_id','=', config_id])
-    result = call('pos.order', 'read_group',
+        domain.append(['config_id', '=', config_id])
+    result = execute(uid, 'pos.order', 'read_group',
         [domain],
-        {'fields':['amount_total:sum','id:count'], 'groupby':[], 'limit':1})
+        {'fields': ['amount_total:sum', 'id:count'], 'groupby': [], 'limit': 1})
     if result and len(result) > 0:
         row = result[0]
         return {
             'revenue': round(row.get('amount_total') or 0),
-            'orders': row.get('id') or 0
+            'orders': row.get('id') or row.get('__count') or 0
         }
-    return {'revenue':0, 'orders':0}
+    return {'revenue': 0, 'orders': 0}
 
-def get_top_products(start_date, end_date, limit=5):
+def get_top_products(uid, start_date, end_date, limit=5):
     """أفضل المنتجات لفترة"""
-    result = call('pos.order.line', 'read_group',
-        [[['order_id.date_order','>=', f'{start_date} 00:00:00'],
-          ['order_id.date_order','<=', f'{end_date} 23:59:59'],
-          ['order_id.state','in',['done','invoiced','paid']],
-          ['price_subtotal_incl','>',0]]],
-        {'fields':['product_id','qty:sum','price_subtotal_incl:sum'],
-         'groupby':['product_id'],
-         'orderby':'price_subtotal_incl desc',
+    result = execute(uid, 'pos.order.line', 'read_group',
+        [[['order_id.date_order', '>=', f'{start_date} 00:00:00'],
+          ['order_id.date_order', '<=', f'{end_date} 23:59:59'],
+          ['order_id.state', 'in', ['done', 'invoiced', 'paid']],
+          ['price_subtotal_incl', '>', 0]]],
+        {'fields': ['product_id', 'qty:sum', 'price_subtotal_incl:sum'],
+         'groupby': ['product_id'],
+         'orderby': 'price_subtotal_incl desc',
          'limit': limit})
     return [{
-        'product': (p.get('product_id', [None,''])[1] or '').split(']')[-1].strip()[:40],
+        'product': (p.get('product_id', [None, ''])[1] or '').split(']')[-1].strip()[:40],
         'qty': round(p.get('qty') or 0),
         'revenue': round(p.get('price_subtotal_incl') or 0)
     } for p in (result or [])]
 
 def calculate_change(new, old):
-    """نسبة التغير"""
     if old == 0:
         return 0
     return round((new - old) / old * 1000) / 10
@@ -95,9 +99,11 @@ def calculate_change(new, old):
 def fmt(d):
     return d.strftime('%Y-%m-%d')
 
-# ─── البناء الرئيسي ─────────────────────────────────────────────────────
 def main():
     print(f"🚀 بدء السحب: {datetime.now()}")
+    print(f"🔗 الموقع: {ODOO_URL}")
+    print(f"💾 قاعدة البيانات: {ODOO_DB}")
+    print(f"👤 المستخدم: {ODOO_USER}")
     
     uid = authenticate()
     print(f"✅ تم تسجيل الدخول (UID: {uid})")
@@ -115,19 +121,17 @@ def main():
     print(f"📅 أمس: {fmt(yesterday)}")
     print(f"📊 الأسبوع: {fmt(week_start)} → {fmt(week_end)}")
     
-    # الإجمالي
-    yesterday_total = get_sales(fmt(yesterday), fmt(yesterday))
-    day_before_total = get_sales(fmt(day_before), fmt(day_before))
-    week_total = get_sales(fmt(week_start), fmt(week_end))
-    prev_month_total = get_sales(fmt(prev_month_start), fmt(prev_month_end))
+    yesterday_total = get_sales(uid, fmt(yesterday), fmt(yesterday))
+    day_before_total = get_sales(uid, fmt(day_before), fmt(day_before))
+    week_total = get_sales(uid, fmt(week_start), fmt(week_end))
+    prev_month_total = get_sales(uid, fmt(prev_month_start), fmt(prev_month_end))
     
-    # لكل فرع
     branches = {}
     for bid, bname in BRANCH_MAP.items():
-        y = get_sales(fmt(yesterday), fmt(yesterday), bid)
-        db = get_sales(fmt(day_before), fmt(day_before), bid)
-        w = get_sales(fmt(week_start), fmt(week_end), bid)
-        pm = get_sales(fmt(prev_month_start), fmt(prev_month_end), bid)
+        y = get_sales(uid, fmt(yesterday), fmt(yesterday), bid)
+        db = get_sales(uid, fmt(day_before), fmt(day_before), bid)
+        w = get_sales(uid, fmt(week_start), fmt(week_end), bid)
+        pm = get_sales(uid, fmt(prev_month_start), fmt(prev_month_end), bid)
         branches[bname] = {
             'yesterday': y, 'day_before': db,
             'week': w, 'prev_month_week': pm,
@@ -135,35 +139,27 @@ def main():
             'change_wow': calculate_change(w['revenue'], pm['revenue']),
         }
     
-    # أفضل منتجات أمس
-    top_products = get_top_products(fmt(yesterday), fmt(yesterday))
+    top_products = get_top_products(uid, fmt(yesterday), fmt(yesterday))
     
-    # آخر 7 أيام
+    day_names_ar = ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد']
     last_7_days = []
-    day_names_ar = ['الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت','الأحد']
     for i in range(6, -1, -1):
-        d = today - timedelta(days=i+1)
-        sales = get_sales(fmt(d), fmt(d))
+        d = today - timedelta(days=i + 1)
+        sales = get_sales(uid, fmt(d), fmt(d))
         last_7_days.append({
-            'date': fmt(d),
-            'revenue': sales['revenue'],
-            'orders': sales['orders'],
-            'day_name': day_names_ar[d.weekday()]
+            'date': fmt(d), 'revenue': sales['revenue'],
+            'orders': sales['orders'], 'day_name': day_names_ar[d.weekday()]
         })
     
-    # نفس 7 أيام الشهر الماضي
     prev_month_7_days = []
     for i in range(6, -1, -1):
-        d = today - timedelta(days=i+1+28)
-        sales = get_sales(fmt(d), fmt(d))
+        d = today - timedelta(days=i + 1 + 28)
+        sales = get_sales(uid, fmt(d), fmt(d))
         prev_month_7_days.append({
-            'date': fmt(d),
-            'revenue': sales['revenue'],
-            'orders': sales['orders'],
-            'day_name': day_names_ar[d.weekday()]
+            'date': fmt(d), 'revenue': sales['revenue'],
+            'orders': sales['orders'], 'day_name': day_names_ar[d.weekday()]
         })
     
-    # البيانات النهائية
     dashboard = {
         'last_updated': today.strftime('%Y-%m-%d %H:%M:%S'),
         'periods': {
@@ -186,7 +182,6 @@ def main():
         'prev_month_7_days': prev_month_7_days,
     }
     
-    # حفظ
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(dashboard, f, ensure_ascii=False, indent=2)
     
