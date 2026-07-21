@@ -91,6 +91,71 @@ def get_top_products(uid, start_date, end_date, limit=5):
         'revenue': round(p.get('price_subtotal_incl') or 0)
     } for p in (result or [])]
 
+def get_expense_structure(uid, start_date, end_date):
+    """يجمع حسابات المصروفات الفعلية من القيود المحاسبية المرحّلة فقط."""
+    domain = [
+        ['date', '>=', start_date],
+        ['date', '<=', end_date],
+        ['move_id.state', '=', 'posted'],
+        ['account_id.account_type', 'in', ['expense', 'expense_direct_cost']],
+    ]
+    try:
+        grouped = execute(
+            uid,
+            'account.move.line',
+            'read_group',
+            [domain],
+            {
+                'fields': ['debit:sum', 'credit:sum'],
+                'groupby': ['account_id'],
+                'orderby': 'debit desc',
+                'lazy': False,
+            },
+        ) or []
+        account_ids = [row['account_id'][0] for row in grouped if row.get('account_id')]
+        accounts = execute(
+            uid,
+            'account.account',
+            'search_read',
+            [[['id', 'in', account_ids]]],
+            {'fields': ['code', 'name', 'account_type']},
+        ) if account_ids else []
+        account_map = {row['id']: row for row in accounts}
+        rows = []
+        for item in grouped:
+            if not item.get('account_id'):
+                continue
+            account_id, fallback_name = item['account_id']
+            account = account_map.get(account_id, {})
+            amount = round((item.get('debit') or 0) - (item.get('credit') or 0), 2)
+            if amount == 0:
+                continue
+            account_type = account.get('account_type') or 'expense'
+            rows.append({
+                'id': account_id,
+                'code': account.get('code') or '',
+                'name': account.get('name') or fallback_name or 'غير محدد',
+                'account_type': account_type,
+                'classification': 'direct_cost' if account_type == 'expense_direct_cost' else 'operating_expense',
+                'amount': amount,
+            })
+        rows.sort(key=lambda item: abs(item['amount']), reverse=True)
+        direct_cost = round(sum(item['amount'] for item in rows if item['classification'] == 'direct_cost'), 2)
+        operating_expense = round(sum(item['amount'] for item in rows if item['classification'] == 'operating_expense'), 2)
+        return {
+            'status': 'ok',
+            'start_date': start_date,
+            'end_date': end_date,
+            'total_expenses': round(direct_cost + operating_expense, 2),
+            'direct_cost': direct_cost,
+            'operating_expense': operating_expense,
+            'accounts': rows,
+        }
+    except Exception:
+        # لا تُعرض رسالة Odoo الخام حتى لا تتسرّب تفاصيل الجلسة إلى سجل GitHub Actions.
+        return {'status': 'unavailable', 'reason': 'accounting_read_failed'}
+
+
 def calculate_change(new, old):
     if old == 0:
         return 0
@@ -101,12 +166,10 @@ def fmt(d):
 
 def main():
     print(f"🚀 بدء السحب: {datetime.now()}")
-    print(f"🔗 الموقع: {ODOO_URL}")
-    print(f"💾 قاعدة البيانات: {ODOO_DB}")
-    print(f"👤 المستخدم: {ODOO_USER}")
-    
+    print("🔐 تم تحميل بيانات الاعتماد من أسرار GitHub دون طباعتها في السجل")
+
     uid = authenticate()
-    print(f"✅ تم تسجيل الدخول (UID: {uid})")
+    print("✅ تم تسجيل الدخول بنجاح")
     
     # المرجع الزمني (Saudi time = UTC+3)
     saudi_tz = timezone(timedelta(hours=3))
@@ -140,7 +203,9 @@ def main():
         }
     
     top_products = get_top_products(uid, fmt(yesterday), fmt(yesterday))
-    
+    year_start = today.replace(month=1, day=1)
+    expense_structure = get_expense_structure(uid, fmt(year_start), fmt(yesterday))
+
     day_names_ar = ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد']
     last_7_days = []
     for i in range(6, -1, -1):
@@ -178,6 +243,7 @@ def main():
         },
         'branches': branches,
         'top_products_yesterday': top_products,
+        'expense_structure_ytd': expense_structure,
         'last_7_days': last_7_days,
         'prev_month_7_days': prev_month_7_days,
     }
@@ -191,6 +257,11 @@ def main():
     print(f"   التغير اليومي: {dashboard['totals']['change_dod_pct']:+.1f}%")
     print(f"   الأسبوع:       {week_total['revenue']:>10,} ﷼")
     print(f"   التغير الأسبوعي: {dashboard['totals']['change_wow_pct']:+.1f}%")
+    if expense_structure.get('status') == 'ok':
+        print(f"   مصروفات السنة حتى أمس: {expense_structure['total_expenses']:>10,.2f} ﷼")
+        print(f"   عدد حسابات المصروفات: {len(expense_structure['accounts'])}")
+    else:
+        print("   تفصيل المصروفات: غير متاح لصلاحيات الحسابات الحالية")
     print(f"\n✅ حُفظت البيانات في: {OUTPUT_FILE}")
     return 0
 
